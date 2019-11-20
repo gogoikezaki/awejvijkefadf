@@ -6,30 +6,7 @@ public class ArrayDeque<T> {
     int nextLast;
 
     T[] items;
-    public static void main(String[] args) {
-        ArrayDeque<Integer> a = new ArrayDeque<Integer>();
 
-        int counter = 0;
-        Random r = new Random();
-        for (int i=0;i<10;i++) {
-            int front = r.nextInt(10);
-            int end = r.nextInt(10);
-            for (int j=0;j<front;j++) {
-                a.addFirst(counter);
-                a.printDeque();
-                counter++;
-            }
-            for (int j=0;j<end;j++) {
-                a.addLast(counter);
-                a.printDeque();
-                counter++;
-            }
-
-
-
-        }
-
-    }
     public ArrayDeque() {
         items = (T[]) new Object[8];
         numOfItems = 0;
@@ -70,7 +47,7 @@ public class ArrayDeque<T> {
             items = newItems;
 
 
-        } else if (numOfItems > capacity * 0.6) {
+        } else if (numOfItems > capacity * 0.8) {
             //upsizing
             int first = nextFirst;
             int last = nextLast;
@@ -131,22 +108,70 @@ public class ArrayDeque<T> {
         return numOfItems;
     }
     public void printDeque() {
+        /*
         for(T a: items) {
             System.out.print(a + ", ");
         }
-        System.out.println();
-    }
-    /*
-    public T removeFirst() {
+        */
+
+        System.out.println("items, " + numOfItems + " capacity, " + capacity);
 
     }
+
+    public T removeFirst() {
+        int first = nextFirst;
+        if (first == capacity - 1) {
+            first = 0;
+        } else {
+            first = first + 1;
+        }
+        T toremove = items[first];
+        items[first] = null;
+        numOfItems -= 1;
+        nextFirst = first;
+        resize();
+        return toremove;
+    }
     public T removeLast() {
+        int last = nextLast;
+        if (last == 0) {
+            last = capacity - 1;
+        } else {
+            last = last - 1;
+        }
+        T toremove = items[last];
+        items[last] = null;
+        numOfItems -= 1;
+        nextLast = last;
+        resize();
+        return toremove;
 
     }
     public T get(int index) {
+        int first = nextFirst;
+        int last = nextLast;
 
+        int counter = 0;
+
+        if (first != capacity - 1) {
+            first += 1;
+        } else {
+            first =0;
+        }
+
+        while (counter < index) {
+
+
+            counter += 1;
+            if (first != capacity - 1) {
+                first += 1;
+            } else {
+                first =0;
+            }
+        }
+        return items[first];
     }
     public T getRecursive(int index) {
-
-    }*/
+        return get(index);
+    }
 }
