@@ -1,7 +1,7 @@
 public class LinkedListDeque<T> {
     private node sentinel;
     private int size;
-    public class node {
+    private class node {
 
         public T item;
         public node next;
@@ -24,10 +24,17 @@ public class LinkedListDeque<T> {
     public void addFirst(T item) {
         size = size + 1;
         sentinel.next = new node(item, sentinel.next, sentinel);
+        if (size == 1) {
+            sentinel.prev = sentinel.next;
+        }
+
     }
     public void addLast(T item) {
         size = size + 1;
         sentinel.prev = new node(item, sentinel, sentinel.prev);
+        if (size == 1) {
+            sentinel.next = sentinel.prev;
+        }
 
     }
     public boolean isEmpty() {
@@ -41,14 +48,17 @@ public class LinkedListDeque<T> {
     }
     public T removeFirst() {
         if (sentinel.next != sentinel) {
+            size = size - 1;
             T res = sentinel.next.item;
             sentinel.next = sentinel.next.next;
+
             return res;
         }
         return null;
     }
     public T removeLast() {
         if (sentinel.prev != sentinel) {
+            size = size - 1;
             T res = sentinel.prev.item;
             sentinel.prev = sentinel.prev.prev;
             return res;
