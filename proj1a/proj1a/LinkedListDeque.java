@@ -20,14 +20,7 @@ public class LinkedListDeque<T> {
             prev = this;
         }
     }
-    public static void main(String[] args) {
-        LinkedListDeque<Integer> a = new LinkedListDeque<Integer>();
-        a.addFirst(1);
-        a.addLast(0);
 
-
-
-    }
 
 
 
