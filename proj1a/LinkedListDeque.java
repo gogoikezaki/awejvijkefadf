@@ -1,7 +1,10 @@
+import java.util.Random;
+
 public class LinkedListDeque<T> {
     private node sentinel;
     private int size;
     private class node {
+
 
         public T item;
         public node next;
@@ -18,6 +21,8 @@ public class LinkedListDeque<T> {
         }
     }
 
+
+
     public LinkedListDeque() {
         sentinel = new node();
     }
@@ -26,6 +31,8 @@ public class LinkedListDeque<T> {
         sentinel.next = new node(item, sentinel.next, sentinel);
         if (size == 1) {
             sentinel.prev = sentinel.next;
+        } else {
+            sentinel.next.next.prev = sentinel.next;
         }
 
     }
@@ -34,6 +41,8 @@ public class LinkedListDeque<T> {
         sentinel.prev = new node(item, sentinel, sentinel.prev);
         if (size == 1) {
             sentinel.next = sentinel.prev;
+        } else {
+            sentinel.prev.prev.next = sentinel.prev;
         }
 
     }
@@ -44,29 +53,42 @@ public class LinkedListDeque<T> {
         return size;
     }
     public void printDeque() {
-
+        node pointer = sentinel.next;
+        while (pointer!= sentinel) {
+            System.out.print(" " + pointer.item);
+            pointer = pointer.next;
+        }
+        System.out.println();
     }
     public T removeFirst() {
-        if (sentinel.next != sentinel) {
+        if (size > 0) {
             size = size - 1;
             T res = sentinel.next.item;
             sentinel.next = sentinel.next.next;
+            sentinel.next.prev = sentinel;
+            if (size<2) {
+                sentinel.prev = sentinel.next;
+            }
 
             return res;
         }
         return null;
     }
     public T removeLast() {
-        if (sentinel.prev != sentinel) {
+        if (size > 0) {
             size = size - 1;
             T res = sentinel.prev.item;
             sentinel.prev = sentinel.prev.prev;
+            sentinel.prev.next = sentinel;
+            if (size<2) {
+                sentinel.next = sentinel.prev;
+            }
             return res;
         }
         return null;
     }
     public T get(int index) {
-        if (index < size) {
+        if (index < size && index >= 0) {
             node ptr = sentinel;
             for (int i=0; i<index; i++) {
                 ptr = ptr.next;

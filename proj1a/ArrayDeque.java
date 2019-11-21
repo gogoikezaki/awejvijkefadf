@@ -1,11 +1,11 @@
 import java.util.Random;
 public class ArrayDeque<T> {
-    int numOfItems;
-    int capacity;
-    int nextFirst;
-    int nextLast;
+    private int numOfItems;
+    private int capacity;
+    private int nextFirst;
+    private int nextLast;
 
-    T[] items;
+    private T[] items;
 
     public ArrayDeque() {
         items = (T[]) new Object[8];
@@ -31,7 +31,7 @@ public class ArrayDeque<T> {
             while (first != last) {
 
 
-                System.out.print(items[first] + " ");
+                //System.out.print(items[first] + " ");
                 newItems[counter] = items[first];
 
                 counter += 1;
@@ -63,7 +63,7 @@ public class ArrayDeque<T> {
             while (first != last) {
 
 
-                System.out.print(items[first] + " ");
+                //System.out.print(items[first] + " ");
                 newItems[counter] = items[first];
 
                 counter += 1;
@@ -114,11 +114,12 @@ public class ArrayDeque<T> {
         }
         */
 
-        System.out.println("items, " + numOfItems + " capacity, " + capacity);
+        //System.out.println("items, " + numOfItems + " capacity, " + capacity);
 
     }
 
     public T removeFirst() {
+        if (numOfItems != 0) {
         int first = nextFirst;
         if (first == capacity - 1) {
             first = 0;
@@ -130,9 +131,11 @@ public class ArrayDeque<T> {
         numOfItems -= 1;
         nextFirst = first;
         resize();
-        return toremove;
+        return toremove;}
+        return null;
     }
     public T removeLast() {
+        if (numOfItems != 0) {
         int last = nextLast;
         if (last == 0) {
             last = capacity - 1;
@@ -144,7 +147,8 @@ public class ArrayDeque<T> {
         numOfItems -= 1;
         nextLast = last;
         resize();
-        return toremove;
+        return toremove;}
+        return null;
 
     }
     public T get(int index) {
@@ -171,7 +175,5 @@ public class ArrayDeque<T> {
         }
         return items[first];
     }
-    public T getRecursive(int index) {
-        return get(index);
-    }
+
 }
