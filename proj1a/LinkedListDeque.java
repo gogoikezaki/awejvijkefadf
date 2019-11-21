@@ -23,6 +23,8 @@ public class LinkedListDeque<T> {
 
 
 
+
+
     public LinkedListDeque() {
         sentinel = new node();
     }
@@ -90,7 +92,7 @@ public class LinkedListDeque<T> {
     public T get(int index) {
         if (index < size && index >= 0) {
             node ptr = sentinel;
-            for (int i=0; i<index; i++) {
+            for (int i=0; i<index+1; i++) {
                 ptr = ptr.next;
             }
             return ptr.item;
@@ -98,14 +100,7 @@ public class LinkedListDeque<T> {
         return null;
     }
     public T getRecursive(int index) {
-        if (index < size) {
-            node ptr = sentinel;
-            for (int i=0; i<index; i++) {
-                ptr = ptr.next;
-            }
-            return ptr.item;
-        }
-        return null;
-        //return this.getRecursive()
+        return get(index);
     }
+
 }
